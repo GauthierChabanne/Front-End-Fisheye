@@ -76,7 +76,69 @@ async function init() {
   const photographer = await getPhotographer();
   const photographerMedia = await getPhotographerMedia();
   displayData(photographer, photographerMedia)
+  const selectInput = document.querySelector("#tri_select");
+  const allMedia = document.querySelectorAll(".photographer_media");
+  const allMediaArray = Array.from(allMedia);
+  const mediaSection = document.querySelector(".media-section");
+
+  selectInput.addEventListener("change", function () {
+    if (selectInput.value === "Popularité") {
+      allMediaArray.sort(popularitySort);
+    } else if (selectInput.value === "Date") {
+      allMediaArray.sort(dateSort);
+    } else if (selectInput.value === "Titre") {
+      allMediaArray.sort(titleSort);
+    }
+    mediaSection.innerHTML = ""
+    allMediaArray.forEach(media => {
+      mediaSection.append(media);
+    })
+  })
 };
+
+//functions for Sorting
+function popularitySort(a, b) {
+  const aLikesNumberDiv = a.querySelector(".photo_likes_number");
+  const aLikesNumber = parseInt(aLikesNumberDiv.textContent);
+  const bLikesNumberDiv = b.querySelector(".photo_likes_number");
+  const bLikesNumber = parseInt(bLikesNumberDiv.textContent);
+
+  if (aLikesNumber < bLikesNumber) {
+    return 1;
+  }
+  if (aLikesNumber > bLikesNumber) {
+    return -1
+  }
+  return 0;
+}
+
+function dateSort(a, b) {
+  const aDate = new Date(a.dataset.date);
+  const bDate = new Date(b.dataset.date);
+
+  if (aDate < bDate) {
+    return 1;
+  }
+  if (aDate > bDate) {
+    return -1
+  }
+  return 0;
+}
+
+function titleSort(a, b) {
+  const aTitleDiv = a.querySelector(".photo_title")
+  const aTitle = aTitleDiv.textContent
+  const bTitleDiv = b.querySelector(".photo_title")
+  const bTitle = bTitleDiv.textContent
+
+  if (aTitle < bTitle) {
+    return -1;
+  }
+  if (aTitle > bTitle) {
+    return 1
+  }
+  return 0;
+}
 
 //functions for the likes
 

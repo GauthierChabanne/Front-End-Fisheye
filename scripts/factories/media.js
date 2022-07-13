@@ -6,7 +6,8 @@ function mediaFactory(data) {
 
   function getMediaCardDOM() {
     const photo = document.createElement('article');
-    photo.setAttribute("class", "photographer_media")
+    photo.setAttribute("class", "photographer_media");
+    photo.setAttribute("data-date", date)
     let photoMedia = ""
 
     if (image !== undefined) {

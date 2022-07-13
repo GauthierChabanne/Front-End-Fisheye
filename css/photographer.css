@@ -133,6 +133,10 @@ form textarea {
   margin: 1rem 100px;
 }
 
+#tri_select {
+  margin-left: 2rem;
+}
+
 #tri_select, #tri_select option {
     background-color: #911B1C;
     color: white;
