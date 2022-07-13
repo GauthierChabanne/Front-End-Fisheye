@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/photographer.css" type="text/css">
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
@@ -9,28 +13,57 @@
   </head>
   <body>
     <header>
-      <img src="assets/images/logo.png" class="logo" />
+      <a href="index.html">
+        <img src="assets/images/logo.png" class="logo" alt="Fisheye Home page"/>
+      </a>
     </header>
-    <main id="main">
+    <main id="main" aria-hidden="false">
       <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <div class="photograph-infos"></div>
+        <button class="contact_button" aria-label="Contact Me" onclick="displayModal()">Contactez-moi</button>
+        <div class="photograph-picture"></div>
       </div>
     </main>
-    <div id="contact_modal">
+    <div id="contact_modal" aria-labelledby="contact_modal_header" role="dialog" aria-hidden="true">
 			<div class="modal">
 				<header>
-          <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+          <h1 id="contact_modal_header">Contactez-moi <br> <span id="photographer_name"></span></h1>
+          <img src="assets/icons/close.svg" onclick="closeModal()" aria-label="Close contact form"/>
         </header>
-				<form>
+				<form id="contact_form">
 					<div>
-						<label>Prénom</label>
-						<input />
+						<label id=" user_first_name_label" for="user_first_name">Prénom</label>
+						<input id="user_first_name" type="text" required aria-required="true" aria-labelledby="user_first_name_label"/>
+						<label id=" user_last_name_label" for="user_last_name">Nom</label>
+						<input id="user_last_name" type="text" required aria-required="true" aria-labelledby="user_last_name_label"/>
+						<label id=" user_email_label" for="user_email">Email</label>
+						<input id="user_email" type="email" required aria-required="true" aria-labelledby="user_email_label"/>
+						<label id=" user_message_label" for="user_message">Votre message</label>
+						<textarea id="user_message" type="text" required aria-required="true" aria-labelledby="user_message_label"></textarea>
 					</div>
-          <button class="contact_button">Envoyer</button>
+          <button id="form_button" class="contact_button" aria-label="Send">Envoyer</button>
 				</form>
 			</div>
 		</div>
+    <div class="media_tri" aria-hidden="false">
+      <label id="tri_select_label" for="tri_select">Trier par</label>
+      <select id="tri_select" aria-labelledby="media_tri">
+        <option>Popularité</option>
+        <option>Date</option>
+        <option>Titre</option>
+      </select>
+    </div>
+    <aside class="media-section" aria-hidden="false"></aside>
+    <div class="supplementary-infos" aria-hidden="false">
+      <div class="photo_total_likes">
+        <p class="photo_total_likes_number"></p>
+      </div>
+      <p class="photographer_daily_price"></p>
+    </div>
     <script src="/scripts/utils/contactForm.js"></script>
+    <script src="/scripts/utils/triSelect.js"></script>
+    <script src="/scripts/pages/photographer.js"></script>
+    <script src="/scripts/factories/photographer.js"></script>
+    <script src="/scripts/factories/media.js"></script>
   </body>
 </html>

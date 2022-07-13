@@ -6,19 +6,63 @@
     background-color: #FAFAFA;
     height: 300px;
     margin: 0 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.photograph-header h1 {
+  color: #D1563D;
+  font-size: 35px;
+  font-weight: lighter;
+  margin: 0 0 10px;
+}
+
+.photograph-header .photographer_other_infos {
+  display: flex;
+  flex-direction: column;
+}
+
+.photograph-header .photographer_city {
+  color: #901C1C;
+  font-weight: lighter;
+  font-size: 16px;
+  margin-bottom: 1rem;
+}
+
+.photograph-header .photographer_tagline {
+  font-size: 12px;
+  font-weight: lighter;
+  opacity: 0.6;
+}
+
+.photograph-header .photograph-picture img{
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .contact_button {
-    font-size: 20px;
+    font-size: 14px;
     font-weight: bold;
     color: white;
     padding: 11px;
-    width: 170px;
-    height: 70px;
+    width: 120px;
+    height: 50px;
     border: none;
     background-color: #901C1C;
     border-radius: 5px;
     cursor: pointer;
+}
+
+#contact_modal {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.5)
 }
 
 .modal {
@@ -31,6 +75,9 @@
     justify-content: space-between;
     padding: 35px;
     margin: auto;
+    position: absolute;
+    top: 3%;
+    right: 25%;
 }
 
 .modal header {
@@ -42,10 +89,11 @@
     cursor: pointer;
 }
 
-.modal header h2 {
-    font-size: 64px;
+.modal header h1 {
+    font-size: 40px;
     font-weight: normal;
-    text-align: center;
+    margin-bottom: 4rem;
+    color: black;
 }
 
 form {
@@ -57,7 +105,7 @@ form {
 
 form label {
     color: #312E2E;
-    font-size: 36px;
+    font-size: 25px;
 }
 
 form div {
@@ -70,7 +118,95 @@ form div {
 
 form input {
     width: 100%;
-    height: 68px;
+    height: 40px;
     border: none;
     border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+form textarea {
+  width: 100%;
+  height: 100px;
+}
+
+.media_tri {
+  margin: 1rem 100px;
+}
+
+#tri_select, #tri_select option {
+    background-color: #911B1C;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 900;
+}
+
+.media-section {
+  margin: 1rem 100px 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 70px;
+}
+
+.media-section article {
+  width: 300px;
+}
+
+.media-section article img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.media-section article video {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.media-section article .photo_infos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #901C1C;
+  font-size: 18px;
+}
+
+
+.media-section article .photo_infos .photo_likes {
+  display: flex;
+  align-items: center;
+}
+
+.media-section article .photo_infos .photo_likes .fa-heart {
+  margin-left: 5px;
+}
+
+.supplementary-infos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #DB8876;
+  color: black;
+  width: 18rem;
+  font-size: 18px;
+  font-weight: bolder;
+  padding: 0 1rem;
+  position: fixed;
+  bottom: 0;
+  right: 2%;
+}
+
+.supplementary-infos .photo_total_likes {
+  display: flex;
+  align-items: center;
+}
+
+.supplementary-infos .photo_total_likes .photo_total_likes_number {
+  margin-right: 5px;
+}
+
+.strong {
+  font-weight: bolder;
 }
