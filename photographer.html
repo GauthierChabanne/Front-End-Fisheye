@@ -48,13 +48,23 @@
     <div class="media_tri" aria-hidden="false">
       <label id="tri_select_label" for="tri_select">Trier par</label>
       <select id="tri_select" aria-labelledby="media_tri">
-        <option></option>
         <option>Popularité</option>
         <option>Date</option>
         <option>Titre</option>
       </select>
     </div>
     <aside class="media-section" aria-hidden="false"></aside>
+      <div id="media_modal" aria-label="image closeup view" role="dialog" aria-hidden="true">
+        <div class="caroussel_modal">
+          <header>
+            <img src="assets/icons/close copy.svg" onclick="closeCarousselModal()" alt="Close dialog">
+          </header>
+          <div class="slider">
+          </div>
+          <button class="btn btn-next" aria-label="Next image"><i class="fa-solid fa-angle-right"></i></button>
+          <button class="btn btn-prev" aria-label="Previous Image"><i class="fa-solid fa-angle-left"></i></button>
+        </div>
+      </div>
     <div class="supplementary-infos" aria-hidden="false">
       <div class="photo_total_likes">
         <p class="photo_total_likes_number"></p>

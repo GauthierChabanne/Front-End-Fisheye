@@ -48,6 +48,7 @@ async function displayData(photographer, media) {
   const photographerModel = photographerFactory(photographer);
   const userCardDOM = photographerModel.getSpecificUserCardDOM();
   const modalPhotographerName = document.querySelector("#photographer_name");
+
   modalPhotographerName.textContent = photographerModel.name
   photographerInfosSection.appendChild(userCardDOM.photographerInfosSection);
   photographerPictureSection.appendChild(userCardDOM.image)
@@ -68,7 +69,7 @@ async function displayData(photographer, media) {
   photographerTotalLikesHeart.setAttribute("class", "fa-solid fa-heart");
   photoTotalLikesNumber.textContent = photographerTotalLikes;
   photoTotalLikesDiv.appendChild(photographerTotalLikesHeart);
-  photographerDailyPriceDiv.textContent = photographerModel.price + " € / jour"
+  photographerDailyPriceDiv.textContent = photographerModel.price + " € / jour";
 }
 
 async function init() {
@@ -77,10 +78,21 @@ async function init() {
   const photographerMedia = await getPhotographerMedia();
   displayData(photographer, photographerMedia)
   const selectInput = document.querySelector("#tri_select");
-  const allMedia = document.querySelectorAll(".photographer_media");
+  const allMedia = document.querySelectorAll(".photo_link");
   const allMediaArray = Array.from(allMedia);
   const mediaSection = document.querySelector(".media-section");
 
+// To like or dislike a picture while using the L key
+allMediaArray.forEach((media) => {
+    media.addEventListener("keydown", function(event) {
+      if (event.key === "l") {
+        const heartLike = media.querySelector(".photo_likes");
+        heartLike.click();
+      }
+    })
+  })
+
+  // To sort the media depending on the select
   selectInput.addEventListener("change", function () {
     if (selectInput.value === "Popularité") {
       allMediaArray.sort(popularitySort);
@@ -93,6 +105,136 @@ async function init() {
     allMediaArray.forEach(media => {
       mediaSection.append(media);
     })
+  })
+
+  const slider = document.querySelector(".slider");
+  const mediaModal = document.querySelector("#media_modal");
+
+  // To show the specific media in the caroussel when clicking on it
+  allMediaArray.forEach((media) => {
+    media.addEventListener("click", function (e) {
+      e.stopPropagation();
+      let pictureImage = "";
+
+      if (this.querySelector("img") !== null) {
+        pictureImage = this.querySelector("img").cloneNode(true);
+      } else {
+        pictureImage = this.querySelector("video").cloneNode(true);
+        pictureImage.setAttribute("autoplay", "autoplay");
+      }
+
+      const pictureText = this.querySelector(".photo_title").cloneNode(true);
+
+      const newSlide = document.createElement("article");
+      newSlide.setAttribute("class", "carousel_media slide");
+      newSlide.appendChild(pictureImage);
+      newSlide.appendChild(pictureText);
+
+
+      if (slider.children.length > 0) {
+        const slide = document.querySelector(".slide");
+        slider.removeChild(slide);
+        slider.appendChild(newSlide);
+      } else {
+        slider.appendChild(newSlide);
+      }
+      mediaModal.style.display = "block";
+    })
+  })
+
+  // select slide buttons
+  const nextSlide = document.querySelector(".btn-next");
+  const prevSlide = document.querySelector(".btn-prev");
+  const maxIndex = allMediaArray.length - 1;
+
+  // add event listener and navigation functionality
+  nextSlide.addEventListener("click", function () {
+    const slide = document.querySelector(".slide");
+    let slideImage = "";
+
+    if (slide.querySelector("img") !== null) {
+      slideImage = slide.querySelector("img");
+    } else {
+      slideImage = slide.querySelector("video");
+    }
+
+    const originalPictureIndex = allMediaArray.findIndex(element => element.dataset.id === slideImage.dataset.id);
+    let nextPictureIndex = 0
+
+    if (originalPictureIndex + 1 > maxIndex) {
+      nextPictureIndex = 0
+    } else {
+      nextPictureIndex = originalPictureIndex + 1
+    }
+
+    let pictureImage = "";
+
+    if (allMediaArray[nextPictureIndex].querySelector("img") !== null) {
+      pictureImage = allMediaArray[nextPictureIndex].querySelector("img").cloneNode(true);
+    } else {
+      pictureImage = allMediaArray[nextPictureIndex].querySelector("video").cloneNode(true);
+      pictureImage.setAttribute("autoplay", "autoplay");
+    }
+
+    const pictureText = allMediaArray[nextPictureIndex].querySelector(".photo_title").cloneNode(true);
+
+    const newSlide = document.createElement("article");
+    newSlide.setAttribute("class", "carousel_media slide");
+    newSlide.appendChild(pictureImage);
+    newSlide.appendChild(pictureText);
+
+    slider.removeChild(slide);
+    slider.appendChild(newSlide);
+  });
+
+  // add event listener and navigation functionality
+  prevSlide.addEventListener("click", function () {
+    const slide = document.querySelector(".slide");
+    let slideImage = "";
+
+    if (slide.querySelector("img") !== null) {
+      slideImage = slide.querySelector("img");
+    } else {
+      slideImage = slide.querySelector("video");
+    }
+
+    const originalPictureIndex = allMediaArray.findIndex(element => element.dataset.id === slideImage.dataset.id);
+    let previousPictureIndex = 0
+
+    if (originalPictureIndex - 1 < 0) {
+      previousPictureIndex = maxIndex
+    } else {
+      previousPictureIndex = originalPictureIndex - 1
+    }
+
+    let pictureImage = "";
+
+    if (allMediaArray[previousPictureIndex].querySelector("img") !== null) {
+      pictureImage = allMediaArray[previousPictureIndex].querySelector("img").cloneNode(true);
+    } else {
+      pictureImage = allMediaArray[previousPictureIndex].querySelector("video").cloneNode(true);
+      pictureImage.setAttribute("autoplay", "autoplay");
+    }
+
+    const pictureText = allMediaArray[previousPictureIndex].querySelector(".photo_title").cloneNode(true);
+
+    const newSlide = document.createElement("article");
+    newSlide.setAttribute("class", "carousel_media slide");
+    newSlide.appendChild(pictureImage);
+    newSlide.appendChild(pictureText);
+
+    slider.removeChild(slide);
+    slider.appendChild(newSlide);
+  });
+
+  //add Event listener for navigation in modal with buttons
+
+  window.addEventListener("keyup", function(event) {
+    if (event.key === "ArrowRight") {
+      nextSlide.click();
+    } else if (event.key === "ArrowLeft") {
+      prevSlide.click();
+    }
   })
 };
 
@@ -142,7 +284,8 @@ function titleSort(a, b) {
 
 //functions for the likes
 
-function addLike(photoLikes) {
+function addLike(photoLikes, event) {
+  event.stopPropagation();
   photoLikes.classList.add("strong");
   const number = photoLikes.querySelector(".photo_likes_number");
   const previousNumber = number.textContent;
@@ -152,10 +295,11 @@ function addLike(photoLikes) {
   const totalLikesNumber = document.querySelector(".photo_total_likes_number")
   const previousTotalNumber = totalLikesNumber.textContent;
   totalLikesNumber.textContent = parseInt(previousTotalNumber) + 1;
-  photoLikes.setAttribute("onclick", "removeLike(this)")
+  photoLikes.setAttribute("onclick", "removeLike(this, event)")
 }
 
-function removeLike(photoLikes) {
+function removeLike(photoLikes, event) {
+  event.stopPropagation();
   photoLikes.classList.remove("strong");
   const number = photoLikes.querySelector(".photo_likes_number");
   const previousNumber = number.textContent;
@@ -165,7 +309,13 @@ function removeLike(photoLikes) {
   const totalLikesNumber = document.querySelector(".photo_total_likes_number")
   const previousTotalNumber = totalLikesNumber.textContent;
   totalLikesNumber.textContent = parseInt(previousTotalNumber) - 1;
-  photoLikes.setAttribute("onclick", "addLike(this)")
+  photoLikes.setAttribute("onclick", "addLike(this, event)")
+}
+
+//function to close the caroussel Modal
+function closeCarousselModal() {
+  const modal = document.querySelector("#media_modal");
+  modal.style.display = "none";
 }
 
 init();

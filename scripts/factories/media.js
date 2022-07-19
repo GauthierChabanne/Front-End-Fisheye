@@ -5,18 +5,21 @@ function mediaFactory(data) {
   const pictureVideo = `assets/images/${video}`
 
   function getMediaCardDOM() {
+    const photoLink = document.createElement("a");
+    photoLink.setAttribute("class", "photo_link");
+    photoLink.setAttribute("href", "javascript: void (0)");
+    photoLink.setAttribute("aria-label", title + ", closeup view");
+    photoLink.setAttribute("data-date", date);
+    photoLink.setAttribute("data-id", id);
     const photo = document.createElement('article');
     photo.setAttribute("class", "photographer_media");
-    photo.setAttribute("data-date", date)
     let photoMedia = ""
 
     if (image !== undefined) {
       photoMedia = document.createElement('img');
       photoMedia.setAttribute("src", picture);
-      photoMedia.setAttribute("alt", " ");
     } else {
       photoMedia = document.createElement("video");
-      photoMedia.setAttribute("alt", " ")
       photoMediaSource = document.createElement("source");
       photoMediaSource.setAttribute("src", pictureVideo);
       photoMediaSource.setAttribute("type", "video/mp4");
@@ -24,7 +27,8 @@ function mediaFactory(data) {
       photoMedia.appendChild(photoMediaSource)
     }
 
-    photoMedia.setAttribute("alt", title + ", closeup view");
+    photoMedia.setAttribute("alt", " ");
+    photoMedia.setAttribute("data-id", id);
     const photoInfos = document.createElement('div');
     photoInfos.setAttribute("class", "photo_infos");
     const photoTitle = document.createElement('p');
@@ -32,7 +36,7 @@ function mediaFactory(data) {
     photoTitle.setAttribute("class", "photo_title");
     const photoLikes = document.createElement("div");
     photoLikes.setAttribute("class", "photo_likes");
-    photoLikes.setAttribute("onclick", "addLike(this)")
+    photoLikes.setAttribute("onclick", "addLike(this, event)")
     const photoLikesNumber = document.createElement("p");
     photoLikesNumber.textContent = likes;
     photoLikesNumber.setAttribute("class", "photo_likes_number");
@@ -45,8 +49,8 @@ function mediaFactory(data) {
     photoInfos.appendChild(photoLikes);
     photo.appendChild(photoMedia);
     photo.appendChild(photoInfos);
-    return (photo)
-
+    photoLink.appendChild(photo);
+    return (photoLink);
   }
   return {id, photographerId, title, image, video, likes, date, price, getMediaCardDOM}
 }
