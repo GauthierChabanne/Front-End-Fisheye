@@ -36,7 +36,7 @@ function mediaFactory(data) {
     photoTitle.setAttribute("class", "photo_title");
     const photoLikes = document.createElement("div");
     photoLikes.setAttribute("class", "photo_likes");
-    photoLikes.setAttribute("onclick", "addLike(this, event)")
+    photoLikes.setAttribute("onclick", "like(this, event)")
     const photoLikesNumber = document.createElement("p");
     photoLikesNumber.textContent = likes;
     photoLikesNumber.setAttribute("class", "photo_likes_number");

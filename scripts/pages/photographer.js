@@ -3,7 +3,7 @@ const params = (new URL(document.location)).searchParams;
 const id = params.get('id');
 
 async function getPhotographers() {
-  const photographers = fetch('./data/photographers.json', { method: 'GET', })
+  const photographers = fetch('data/photographers.json', { method: 'GET', })
     .then(response => response.json())
     .then(data => data.photographers)
 
@@ -22,7 +22,7 @@ async function getPhotographer() {
 }
 
 async function getMedia() {
-  const media = fetch('./data/photographers.json', { method: 'GET', })
+  const media = fetch('data/photographers.json', { method: 'GET', })
     .then(response => response.json())
     .then(data => data.media)
 
@@ -282,35 +282,31 @@ function titleSort(a, b) {
   return 0;
 }
 
-//functions for the likes
+//function for the likes
 
-function addLike(photoLikes, event) {
+function like(photoLikes, event) {
   event.stopPropagation();
-  photoLikes.classList.add("strong");
   const number = photoLikes.querySelector(".photo_likes_number");
   const previousNumber = number.textContent;
-  number.textContent = parseInt(previousNumber) + 1;
-  const heart = photoLikes.querySelector(".fa-heart")
-  heart.setAttribute("class", "fa-solid fa-heart");
-  const totalLikesNumber = document.querySelector(".photo_total_likes_number")
+  const heart = photoLikes.querySelector(".fa-heart");
+  const TypeOfHeart = heart.getAttribute("class")
+  const totalLikesNumber = document.querySelector(".photo_total_likes_number");
   const previousTotalNumber = totalLikesNumber.textContent;
-  totalLikesNumber.textContent = parseInt(previousTotalNumber) + 1;
-  photoLikes.setAttribute("onclick", "removeLike(this, event)")
+
+  if (TypeOfHeart === "fa-regular fa-heart") {
+    photoLikes.classList.add("strong");
+    number.textContent = parseInt(previousNumber) + 1;
+    heart.setAttribute("class", "fa-solid fa-heart");
+    totalLikesNumber.textContent = parseInt(previousTotalNumber) + 1;
+
+  } else if (TypeOfHeart === "fa-solid fa-heart") {
+    photoLikes.classList.remove("strong");
+    number.textContent = parseInt(previousNumber) - 1;
+    heart.setAttribute("class", "fa-regular fa-heart");
+    totalLikesNumber.textContent = parseInt(previousTotalNumber) - 1;
+  }
 }
 
-function removeLike(photoLikes, event) {
-  event.stopPropagation();
-  photoLikes.classList.remove("strong");
-  const number = photoLikes.querySelector(".photo_likes_number");
-  const previousNumber = number.textContent;
-  number.textContent = parseInt(previousNumber) - 1;
-  const heart = photoLikes.querySelector(".fa-heart")
-  heart.setAttribute("class", "fa-regular fa-heart");
-  const totalLikesNumber = document.querySelector(".photo_total_likes_number")
-  const previousTotalNumber = totalLikesNumber.textContent;
-  totalLikesNumber.textContent = parseInt(previousTotalNumber) - 1;
-  photoLikes.setAttribute("onclick", "addLike(this, event)")
-}
 
 //function to close the caroussel Modal
 function closeCarousselModal() {
