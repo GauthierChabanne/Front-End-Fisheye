@@ -27,7 +27,7 @@ function mediaFactory(data) {
       photoMedia.appendChild(photoMediaSource)
     }
 
-    photoMedia.setAttribute("alt", " ");
+    photoMedia.setAttribute("alt", title);
     photoMedia.setAttribute("data-id", id);
     const photoInfos = document.createElement('div');
     photoInfos.setAttribute("class", "photo_infos");

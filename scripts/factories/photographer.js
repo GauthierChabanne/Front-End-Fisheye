@@ -9,7 +9,7 @@ function photographerFactory(data) {
         link.setAttribute("href", "photographer.html?id=" + id)
         const img = document.createElement( 'img' );
         img.setAttribute("src", picture);
-        img.setAttribute("alt", " ");
+        img.setAttribute("alt", name);
         const h2 = document.createElement( 'h2' );
         h2.textContent = name;
         h2.setAttribute("aria-label", name);

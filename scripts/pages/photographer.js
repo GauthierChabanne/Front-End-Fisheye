@@ -3,7 +3,7 @@ const params = (new URL(document.location)).searchParams;
 const id = params.get('id');
 
 async function getPhotographers() {
-  const photographers = fetch('/data/photographers.json', { method: 'GET', })
+  const photographers = fetch('data/photographers.json', { method: 'GET', })
     .then(response => response.json())
     .then(data => data.photographers)
 
@@ -147,7 +147,7 @@ allMediaArray.forEach((media) => {
   const prevSlide = document.querySelector(".btn-prev");
   const maxIndex = allMediaArray.length - 1;
 
-  // add event listener and navigation functionality
+  // Function to navigate to the next media
   nextSlide.addEventListener("click", function () {
     const slide = document.querySelector(".slide");
     let slideImage = "";
@@ -187,7 +187,7 @@ allMediaArray.forEach((media) => {
     slider.appendChild(newSlide);
   });
 
-  // add event listener and navigation functionality
+  // Function to navigate to the previous media
   prevSlide.addEventListener("click", function () {
     const slide = document.querySelector(".slide");
     let slideImage = "";
