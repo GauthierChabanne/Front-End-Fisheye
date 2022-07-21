@@ -3,7 +3,7 @@ const params = (new URL(document.location)).searchParams;
 const id = params.get('id');
 
 async function getPhotographers() {
-  const photographers = fetch('data/photographers.json', { method: 'GET', })
+  const photographers = fetch('./data/photographers.json', { method: 'GET', })
     .then(response => response.json())
     .then(data => data.photographers)
 
@@ -22,7 +22,7 @@ async function getPhotographer() {
 }
 
 async function getMedia() {
-  const media = fetch('/data/photographers.json', { method: 'GET', })
+  const media = fetch('./data/photographers.json', { method: 'GET', })
     .then(response => response.json())
     .then(data => data.media)
 
