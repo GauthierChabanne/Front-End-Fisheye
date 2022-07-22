@@ -1,9 +1,11 @@
+// function to access and use all the data in json about the media
 function mediaFactory(data) {
   const {id, photographerId, title, image, video, likes, date, price} = data;
 
   const picture = `assets/images/${image}`;
   const pictureVideo = `assets/images/${video}`
 
+  //function to create the media card in photographer page
   function getMediaCardDOM() {
     const photoLink = document.createElement("a");
     photoLink.setAttribute("class", "photo_link");

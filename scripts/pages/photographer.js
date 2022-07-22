@@ -2,6 +2,7 @@
 const params = (new URL(document.location)).searchParams;
 const id = params.get('id');
 
+// function to parse the json to get the photographers data
 async function getPhotographers() {
   const photographers = fetch('data/photographers.json', { method: 'GET', })
     .then(response => response.json())
@@ -10,6 +11,7 @@ async function getPhotographers() {
   return photographers
 }
 
+// function to get the right photographer data
 async function getPhotographer() {
   const photographers = await getPhotographers();
 
@@ -21,6 +23,7 @@ async function getPhotographer() {
   return rightPhotographer;
 }
 
+// function to parse the json to get the media data
 async function getMedia() {
   const media = fetch('data/photographers.json', { method: 'GET', })
     .then(response => response.json())
@@ -29,6 +32,7 @@ async function getMedia() {
   return media
 }
 
+// function to get the media of the right photographer data
 async function getPhotographerMedia() {
   const media = await getMedia();
   const photographerMedia = [];

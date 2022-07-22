@@ -8,6 +8,7 @@
         return photographers
     }
 
+    //function to display the infos about the photographers and their card
     async function displayData(photographers) {
         const photographersSection = document.querySelector(".photographer_section");
         photographers.forEach((photographer) => {

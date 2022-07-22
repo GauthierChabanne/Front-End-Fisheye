@@ -1,8 +1,10 @@
+//function to use all the datas in the json about the photographers
 function photographerFactory(data) {
     const { name, id, city, country, tagline, price, portrait } = data;
 
     const picture = `assets/photographers/${portrait}`;
 
+    // function to create the photographer card in the index page
     function getUserCardDOM() {
         const article = document.createElement('article');
         const link = document.createElement('a');
@@ -34,6 +36,7 @@ function photographerFactory(data) {
         return (article);
     }
 
+    // function to create the photographer card in the photographer page
     function getSpecificUserCardDOM() {
       const photographerInfosSection = document.createElement('article');
       const photographerInfosName = document.createElement('h1');

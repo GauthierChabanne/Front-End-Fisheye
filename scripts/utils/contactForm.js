@@ -7,10 +7,12 @@ const emailInput = form.querySelector("#user_email");
 const messageInput = form.querySelector("#user_message");
 const userAnswers = {}
 
+//function to display the contact modal
 function displayModal() {
 	modal.style.display = "block";
 }
 
+//function to empty and hide the contact modal
 function closeModal() {
     modal.style.display = "none";
     userAnswers.firstName = firstNameInput.value;
@@ -19,6 +21,7 @@ function closeModal() {
     userAnswers.message = messageInput.value;
 }
 
+// function to log all the inputs infos when submit the form
 form.addEventListener("submit", function(e){
   e.preventDefault();
   userAnswers.firstName = firstNameInput.value;
@@ -33,6 +36,7 @@ form.addEventListener("submit", function(e){
   messageInput.value = "";
 })
 
+//function to close the modal by pressing the escape button
 document.addEventListener("keydown", function(e) {
  if (e.key === 'Escape') {
   closeModal();
